@@ -15,6 +15,19 @@ const Global = createGlobalStyle`
     justify-content: center;
     background-color: #f2f2f2;
   }
+
+  #fundo {
+    background-image: "../assets/global/OIP.jfif";
+  }
+
+  .menu ul{
+    display: flex;
+    list-style-type: none;
+    gap: 10px;
+  }
+
+
 `;
+
 
 export default Global;

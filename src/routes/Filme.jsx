@@ -1,7 +1,7 @@
 import GlobalStyle from "../styles/global";
 import styled from "styled-components";
-import FormSala from "../components/FormSala";
-import GridSala from "../components/GridSala.js";
+import FormFilme from "../components/FormFilme";
+import GridFilme from "../components/GridFilme.js";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,29 +20,29 @@ const Container = styled.div`
 const Title = styled.h2``;
 
 
-export default function Sala() {
-  const [salas, setSala] = useState([]);
+export default function Filme() {
+   const [filmes, setFilme] = useState([]);
   const [onEdit, setOnEdit] = useState(null);
 
-  const getSala = async () => {
+  const getFilme = async () => {
     try {
-      const res = await axios.get("http://localhost:8800/sala");
-      setSala(res.data.sort((a, b) => (a.nomeSala > b.nomeSala ? 1 : -1)));
+      const res = await axios.get("http://localhost:8800/filme");
+      setFilme(res.data.sort((a, b) => (a.nomeFilme > b.nomeFilme ? 1 : -1)));
     } catch (error) {
       toast.error(error);
     }
   };
 
    useEffect(() => {
-    getSala();
-  }, [setSala]);
+    getFilme();
+  }, [setFilme]);
 
   return (
     <>
       <Container>
-        <Title>SALA</Title>
-        <FormSala onEdit={onEdit} setOnEdit={setOnEdit} getSala={getSala} />
-        <GridSala setOnEdit={setOnEdit} salas={salas} setSala={setSala} />
+        <Title>FILME</Title>
+        <FormFilme onEdit={onEdit} setOnEdit={setOnEdit} getFilme={getFilme} />
+        <GridFilme setOnEdit={setOnEdit} filmes={filmes} setFilme={setFilme} />
       </Container>
       <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_LEFT} />
       <GlobalStyle />

@@ -62,6 +62,7 @@ const FormSala = ({ getSala, onEdit, setOnEdit }) => {
   const ref = useRef();
   const [cinemas, setCinemas] = useState([]);
   const [selectedCinema, setSelectedCinema] = useState(null);
+  const [checkboxValue, setCheckboxValue] = useState(false);
 
   useEffect(() => {
     const fetchCinemas = async () => {
@@ -78,9 +79,9 @@ const FormSala = ({ getSala, onEdit, setOnEdit }) => {
 
   useEffect(() => {
     if (onEdit) {
-      const selectedOption = cinemas.find((cinema) => cinema.idCinema === onEdit.idCinema);
+      const selectedOption = cinemas.find((cinema) => cinema.IDcinema === onEdit.IDcinema);
 
-      setSelectedCinema({ value: selectedOption.idCinema, label: selectedOption.nomeCinema });
+      setSelectedCinema({ value: selectedOption.IDcinema, label: selectedOption.nomeCinema });
     }
   }, [onEdit, cinemas]);
 
@@ -122,8 +123,8 @@ const FormSala = ({ getSala, onEdit, setOnEdit }) => {
 
     sala.nomeSala.value = "";
     sala.capacidade.value = "";
-    sala.suporta3D.value = "";
-    sala.idCinema.value = "";
+    setCheckboxValue(false);
+    setSelectedCinema(null);
 
     setOnEdit(null);
     getSala();
@@ -141,14 +142,19 @@ const FormSala = ({ getSala, onEdit, setOnEdit }) => {
       </InputArea>
       <InputArea>
         <Label>Suporta 3d?</Label>
-        <Input name="suporta3D" type="checkbox" />
+        <Input
+          name="suporta3D"
+          type="checkbox"
+          checked={checkboxValue}
+          onChange={() => setCheckboxValue(!checkboxValue)}
+        />
       </InputArea>
       <InputArea>
         <Label>Cinema</Label>
         <StyledSelect
-          name="idCinema"
+          name="IDCinema"
           options={cinemas.map((cinema) => ({
-            value: cinema.idCinema,
+            value: cinema.IDcinema,
             label: cinema.nomeCinema,
           }))}
           value={selectedCinema}

@@ -20,7 +20,7 @@ const Container = styled.div`
 const Title = styled.h2``;
 
 
-export default function Home() {
+export default function Cinema() {
    const [cinemas, setCinema] = useState([]);
   const [onEdit, setOnEdit] = useState(null);
 

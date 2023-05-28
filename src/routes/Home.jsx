@@ -1,5 +1,14 @@
-import "../styles/global.js";
+import "../styles/global"
 
-export default function Home() {
-   return <h1>Home</h1>
+function Home() {
+
+<div id="fundo">
+
+</div>
+
+  return (
+  <h1>Home</h1>
+  );
 }
+
+export default Home;
