@@ -1,14 +1,7 @@
-import "../styles/global"
 
-function Home() {
-
-<div id="fundo">
-
-</div>
+export default function Home() {
 
   return (
   <h1>Home</h1>
   );
 }
-
-export default Home;

@@ -1,23 +1,11 @@
 import GlobalStyle from "../styles/global";
-import styled from "styled-components";
 import FormFilme from "../components/FormFilme";
 import GridFilme from "../components/GridFilme.js";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-
-const Container = styled.div`
-  width: 100%;
-  max-width: 800px;
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-`;
-
-const Title = styled.h2``;
+import { Container, Title } from "../styles/styles";
 
 
 export default function Filme() {

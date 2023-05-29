@@ -1,46 +1,59 @@
 import axios from "axios";
-import React, { useEffect, useRef } from "react";
-import styled from "styled-components";
+import React, { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
-
-const FormContainer = styled.form`
-  display: flex;
-  align-items: flex-end;
-  gap: 10px;
-  flex-wrap: wrap;
-  background-color: #fff;
-  padding: 20px;
-  box-shadow: 0px 0px 5px #ccc;
-  border-radius: 5px;
-`;
-
-const InputArea = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Input = styled.input`
-  width: 120px;
-  padding: 0 10px;
-  border: 1px solid #bbb;
-  border-radius: 5px;
-  height: 40px;
-`;
-
-const Label = styled.label``;
-
-const Button = styled.button`
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 5px;
-  border: none;
-  background-color: #2c73d2;
-  color: white;
-  height: 42px;
-`;
+import { FormContainer, InputArea, Input, Label, Button, StyledSelect } from "../styles/styles";
 
 const FormSessao = ({ getSessao, onEdit, setOnEdit }) => {
   const ref = useRef();
+
+  const [salas, setSalas] = useState([]);
+  const [selectedSala, setSelectedSala] = useState(null);
+  const [checkboxValue, setCheckboxValue] = useState(false);
+
+  const [filmes, setFilmes] = useState([]);
+  const [selectedFilme, setSelectedFilme] = useState(null);
+
+  const [horarios, setHorarios] = useState([]);
+  const [selectedHorario, setSelectedHorario] = useState(null);
+
+  useEffect(() => {
+    const fetchSalas = async () => {
+      try {
+        const response = await axios.get("http://localhost:8800/sala");
+        setSalas(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchSalas();
+  }, []);
+
+  useEffect(() => {
+    const fetchFilmes = async () => {
+      try {
+        const response = await axios.get("http://localhost:8800/sala");
+        setFilmes(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchFilmes();
+  }, []);
+
+  useEffect(() => {
+    const fetchHorarios = async () => {
+      try {
+        const response = await axios.get("http://localhost:8800/sala");
+        setHorarios(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchHorarios();
+  }, []);
 
   useEffect(() => {
     if (onEdit) {
@@ -49,6 +62,9 @@ const FormSessao = ({ getSessao, onEdit, setOnEdit }) => {
       sessao.inicio.value = onEdit.inicio;
       sessao.fim.value = onEdit.fim;
       sessao.legendado.value = onEdit.legendado;
+      sessao.IDsala.value = onEdit.IDSala;
+      sessao.IDfilme.value = onEdit.IDfilme;
+      sessao.IDhorario.value = onEdit.IDhorario;
     }
   }, [onEdit]);
 
@@ -60,7 +76,10 @@ const FormSessao = ({ getSessao, onEdit, setOnEdit }) => {
     if (
       !sessao.inicio.value ||
       !sessao.fim.value ||
-      !sessao.legendado.value
+      !sessao.legendado.value ||
+      !sessao.IDsala.value ||
+      !sessao.IDfilme.value ||
+      !sessao.IDhorario.value
     ) {
       return toast.warn("Preencha todos os campos!");
     }
@@ -71,7 +90,10 @@ const FormSessao = ({ getSessao, onEdit, setOnEdit }) => {
           inicio: sessao.inicio.value,
           fim: sessao.fim.value,
           legendado: sessao.legendado.value,
-        })
+          IDsala: sessao.IDSala.value,
+          IDfilme: sessao.IDfilme.value,
+          IDhorario: sessao.IDhorario.value,
+            })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
     } else {
@@ -80,6 +102,9 @@ const FormSessao = ({ getSessao, onEdit, setOnEdit }) => {
           inicio: sessao.inicio.value,
           fim: sessao.fim.value,
           legendado: sessao.legendado.value,
+          IDsala: sessao.IDSala.value,
+          IDfilme: sessao.IDfilme.value,
+          IDhorario: sessao.IDhorario.value,
         })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
@@ -88,6 +113,9 @@ const FormSessao = ({ getSessao, onEdit, setOnEdit }) => {
     sessao.inicio.value = "";
     sessao.fim.value = "";
     sessao.legendado.value = "";
+    setSelectedSala(null);
+    setSelectedFilme(null);
+    setSelectedHorario(null);
 
     setOnEdit(null);
     getSessao();
@@ -96,17 +124,65 @@ const FormSessao = ({ getSessao, onEdit, setOnEdit }) => {
   return (
     <FormContainer ref={ref} onSubmit={handleSubmit}>
       <InputArea>
-        <Label>Nome</Label>
+        <Label>Inicio</Label>
         <Input name="inicio" />
       </InputArea>
       <InputArea>
-        <Label>Endereço</Label>
+        <Label>Fim</Label>
         <Input name="fim" />
       </InputArea>
       <InputArea>
-        <Label>Contato</Label>
-        <Input name="legendado" />
+        <Label>Legendado</Label>
+        <Input 
+        name="legendado"
+        type="checkbox"
+        checked={checkboxValue}
+        onChange={() => setCheckboxValue(!checkboxValue)}
+        />
       </InputArea>
+      <InputArea>
+        <Label>Sala</Label>
+        <StyledSelect
+          name="IDSala"
+          options={salas.map((sala) => ({
+            value: sala.IDsala,
+            label: sala.nomeSala,
+          }))}
+          value={selectedSala}
+          onChange={(selectedOption) => setSelectedSala(selectedOption)}
+          isSearchable
+          placeholder="Selecione a sala"
+        />
+      </InputArea>
+      <InputArea>
+        <Label>Filme</Label>
+        <StyledSelect
+          name="IDFilme"
+          options={filmes.map((filme) => ({
+            value: filme.IDfilme,
+            label: filme.nomeFilme,
+          }))}
+          value={selectedFilme}
+          onChange={(selectedOption) => setSelectedFilme(selectedOption)}
+          isSearchable
+          placeholder="Selecione um filme"
+        />
+      </InputArea>
+      <InputArea>
+        <Label>Horario</Label>
+        <StyledSelect
+          name="IDHorario"
+          options={horarios.map((horario) => ({
+            value: horario.IDhorario,
+            label: horario.nomeHorario,
+          }))}
+          value={selectedHorario}
+          onChange={(selectedOption) => setSelectedHorario(selectedOption)}
+          isSearchable
+          placeholder="Selecione o horario"
+        />
+      </InputArea>
+
 
       <Button type="submit">SALVAR</Button>
     </FormContainer>

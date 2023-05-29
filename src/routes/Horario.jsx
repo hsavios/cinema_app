@@ -1,24 +1,11 @@
 import GlobalStyle from "../styles/global";
-import styled from "styled-components";
 import FormHorario from "../components/FormHorario";
 import GridHorario from "../components/GridHorario.js";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-
-const Container = styled.div`
-  width: 100%;
-  max-width: 800px;
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-`;
-
-const Title = styled.h2``;
-
+import { Container, Title } from "../styles/styles";
 
 export default function Horario() {
    const [horarios, setHorario] = useState([]);
