@@ -32,7 +32,7 @@ const FormSessao = ({ getSessao, onEdit, setOnEdit }) => {
   useEffect(() => {
     const fetchFilmes = async () => {
       try {
-        const response = await axios.get("http://localhost:8800/sala");
+        const response = await axios.get("http://localhost:8800/filme");
         setFilmes(response.data);
       } catch (error) {
         console.error(error);
@@ -160,7 +160,7 @@ const FormSessao = ({ getSessao, onEdit, setOnEdit }) => {
           name="IDFilme"
           options={filmes.map((filme) => ({
             value: filme.IDfilme,
-            label: filme.nomeFilme,
+            label: filme.nomeBR,
           }))}
           value={selectedFilme}
           onChange={(selectedOption) => setSelectedFilme(selectedOption)}
@@ -174,7 +174,7 @@ const FormSessao = ({ getSessao, onEdit, setOnEdit }) => {
           name="IDHorario"
           options={horarios.map((horario) => ({
             value: horario.IDhorario,
-            label: horario.nomeHorario,
+            label: horario.horario,
           }))}
           value={selectedHorario}
           onChange={(selectedOption) => setSelectedHorario(selectedOption)}

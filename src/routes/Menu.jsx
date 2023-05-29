@@ -26,6 +26,12 @@ export default function Menu() {
         <li>
           <Link to="/filme">Filme</Link>
         </li>
+        <li>
+          <Link to="/ingresso">Ingresso</Link>
+        </li>
+        <li>
+          <Link to="/sessao">Sessão</Link>
+        </li>
       </ul>
     </nav>
   );

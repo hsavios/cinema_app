@@ -1,45 +1,8 @@
 import React from "react";
 import axios from "axios";
-import styled from "styled-components";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { toast } from "react-toastify";
-
-const Table = styled.table`
-  width: 100%;
-  background-color: #fff;
-  padding: 20px;
-  box-shadow: 0px 0px 5px #ccc;
-  border-radius: 5px;
-  max-width: 1120px;
-  margin: 20px auto;
-  word-break: break-all;
-`;
-
-export const Thead = styled.thead``;
-
-export const Tbody = styled.tbody``;
-
-export const Tr = styled.tr``;
-
-export const Th = styled.th`
-  text-align: start;
-  border-bottom: inset;
-  padding-bottom: 5px;
-
-  @media (max-width: 500px) {
-    ${(props) => props.onlyWeb && "display: none"}
-  }
-`;
-
-export const Td = styled.td`
-  padding-top: 15px;
-  text-align: ${(props) => (props.alignCenter ? "center" : "start")};
-  width: ${(props) => (props.width ? props.width : "auto")};
-
-  @media (max-width: 500px) {
-    ${(props) => props.onlyWeb && "display: none"}
-  }
-`;
+import {Table, Thead, Tr, Th, Td, Tbody} from "../styles/styles";
 
 const GridIngresso = ({ ingressos, setIngresso, setOnEdit }) => {
   const handleEdit = (item) => {
@@ -77,12 +40,12 @@ const GridIngresso = ({ ingressos, setIngresso, setOnEdit }) => {
       <Tbody>
         {ingressos.map((item, i) => (
           <Tr key={i}>
-            <Td width="30%">{item.data}</Td>
-            <Td width="30%">{item.valor}</Td>
-            <Td width="30%">{item.poltrona}</Td>
-            <Td width="30%">{item.sala_idSala}</Td>
-            <Td width="30%">{item.idFuncionario}</Td>
-            <Td width="20%" onlyWeb>
+            <Td width="15%">{item.data}</Td>
+            <Td width="15%">{item.valor}</Td>
+            <Td width="10%">{item.poltrona}</Td>
+            <Td width="20%">{item.sala_idSala}</Td>
+            <Td width="10%">{item.idFuncionario}</Td>
+            <Td width="15%" onlyWeb>
               {item.idSessao}
             </Td>
             <Td alignCenter width="5%">

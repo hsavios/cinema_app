@@ -5,12 +5,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Home from "./routes/Home";
 import Cinema from "./routes/Cinema"
+import Filme from './routes/Filme';
 import Funcionario from "./routes/Funcionario"
-import Sala from "./routes/Sala"
-import Menu from "./routes/Menu"
 import Genero from "./routes/Genero"
 import Horario from './routes/Horario';
-import Filme from './routes/Filme';
+import Ingresso from './routes/Ingresso';
+import Sala from "./routes/Sala"
+import Sessao from "./routes/Sessao"
+import Menu from "./routes/Menu"
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -26,6 +28,8 @@ root.render(
         <Route path="/genero" element={<Genero />} />
         <Route path="/horario" element={<Horario />} />
         <Route path="/filme" element={<Filme />} />
+        <Route path="/ingresso" element={<Ingresso />} />
+        <Route path="/sessao" element={<Sessao />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

@@ -1,10 +1,59 @@
 import axios from "axios";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import { FormContainer, InputArea, Input, Label, Button } from "../styles/styles";
+import { FormContainer, InputArea, Input, Label, Button, StyledSelect } from "../styles/styles";
 
 const FormIngresso = ({ getIngresso, onEdit, setOnEdit }) => {
   const ref = useRef();
+
+  const [salas, setSalas] = useState([]);
+  const [selectedSala, setSelectedSala] = useState(null);
+
+  const [funcionarios, setFuncionarios] = useState([]);
+  const [selectedFuncionario, setSelectedFuncionario] = useState(null);
+
+  const [sessoes, setSessoes] = useState([]);
+  const [selectedSessao, setSelectedSessao] = useState(null);
+
+  useEffect(() => {
+    const fetchSalas = async () => {
+      try {
+        const response = await axios.get("http://localhost:8800/sala");
+        setSalas(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchSalas();
+  }, []);
+
+  useEffect(() => {
+    const fetchFuncionarios = async () => {
+      try {
+        const response = await axios.get("http://localhost:8800/funcionario");
+        setFuncionarios(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchFuncionarios();
+  }, []);
+
+  useEffect(() => {
+    const fetchSessoes = async () => {
+      try {
+        const response = await axios.get("http://localhost:8800/sessao");
+        setSessoes(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchSessoes();
+  }, []);
+
 
   useEffect(() => {
     if (onEdit) {
@@ -64,9 +113,9 @@ const FormIngresso = ({ getIngresso, onEdit, setOnEdit }) => {
       ingresso.data.value = "";
       ingresso.valor.value = "";
       ingresso.poltrona.value = "";
-      ingresso.sala_idSala.value = "";
-      ingresso.idFuncionario.value = "";
-      ingresso.idSessao.value = "";
+      setSelectedSala(null);
+      setSelectedFuncionario(null);
+      setSelectedSessao(null);
 
 
     setOnEdit(null);
@@ -88,16 +137,46 @@ const FormIngresso = ({ getIngresso, onEdit, setOnEdit }) => {
         <Input name="poltrona" />
       </InputArea>
       <InputArea>
-        <Label>Sala_idSala</Label>
-        <Input name="sala_idSala" />
+        <Label>Sala</Label>
+        <StyledSelect
+          name="IDsala"
+          options={salas.map((sala) => ({
+            value: sala.IDsala,
+            label: sala.nomeSala,
+          }))}
+          value={selectedSala}
+          onChange={(selectedOption) => setSelectedSala(selectedOption)}
+          isSearchable
+          placeholder="Selecione a sala"
+        />
       </InputArea>
       <InputArea>
-        <Label>IdFuncionario</Label>
-        <Input name="idFuncionario" />
+        <Label>Funcionário</Label>
+        <StyledSelect
+          name="IDfuncionario"
+          options={funcionarios.map((funcionario) => ({
+            value: funcionario.IDfuncionario,
+            label: funcionario.nomeFuncionario,
+          }))}
+          value={selectedFuncionario}
+          onChange={(selectedOption) => setSelectedFuncionario(selectedOption)}
+          isSearchable
+          placeholder="Selecione o funcionário"
+        />
       </InputArea>
       <InputArea>
-        <Label>idSessao</Label>
-        <Input name="idSessao" />
+        <Label>Sessão</Label>
+        <StyledSelect
+          name="IDsessao"
+          options={sessoes.map((sessao) => ({
+            value: sessao.IDsessao,
+            label: sessao.inicio,
+          }))}
+          value={selectedSessao}
+          onChange={(selectedOption) => setSelectedFuncionario(selectedOption)}
+          isSearchable
+          placeholder="Selecione a sessão"
+        />
       </InputArea>
 
       <Button type="submit">SALVAR</Button>
