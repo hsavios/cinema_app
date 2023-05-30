@@ -63,8 +63,8 @@ const FormIngresso = ({ getIngresso, onEdit, setOnEdit }) => {
       ingresso.valor.value = onEdit.valor;
       ingresso.poltrona.value = onEdit.poltrona;
       ingresso.sala_idSala.value = onEdit.sala_idSala;
-      ingresso.idFuncionario.value = onEdit.idFuncionario;
-      ingresso.idSessao.value = onEdit.poltrona;
+      ingresso.IDfuncionario.value = onEdit.IDfuncionario;
+      ingresso.IDsessao.value = onEdit.IDsessao;
     }
   }, [onEdit]);
 
@@ -78,8 +78,8 @@ const FormIngresso = ({ getIngresso, onEdit, setOnEdit }) => {
       !ingresso.valor.value.value ||
       !ingresso.poltrona.value ||
       !ingresso.sala_idSala.value ||
-      !ingresso.idFuncionario.value ||
-      ! ingresso.idSessao.value 
+      !ingresso.IDfuncionario.value ||
+      !ingresso.IDsessao.value 
     ) {
       return toast.warn("Preencha todos os campos!");
     }
@@ -91,8 +91,8 @@ const FormIngresso = ({ getIngresso, onEdit, setOnEdit }) => {
           valor: ingresso.valor.value,
           poltrona: ingresso.poltrona.value,
           sala_idSala: ingresso.sala_idSala.value,
-          idFuncionario: ingresso.idFuncionario.value,
-          idSessao: ingresso.idSessao.value,
+          IDfuncionario: ingresso.IDfuncionario.value,
+          IDsessao: ingresso.IDsessao.value,
         })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
@@ -103,8 +103,8 @@ const FormIngresso = ({ getIngresso, onEdit, setOnEdit }) => {
           valor: ingresso.valor.value,
           poltrona: ingresso.poltrona.value,
           sala_idSala: ingresso.sala_idSala.value,
-          idFuncionario: ingresso.idFuncionario.value,
-          idSessao: ingresso.idSessao.value,
+          IDfuncionario: ingresso.IDfuncionario.value,
+          IDsessao: ingresso.IDsessao.value,
         })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
@@ -156,7 +156,7 @@ const FormIngresso = ({ getIngresso, onEdit, setOnEdit }) => {
           name="IDfuncionario"
           options={funcionarios.map((funcionario) => ({
             value: funcionario.IDfuncionario,
-            label: funcionario.nomeFuncionario,
+            label: funcionario.nome,
           }))}
           value={selectedFuncionario}
           onChange={(selectedOption) => setSelectedFuncionario(selectedOption)}
@@ -173,7 +173,7 @@ const FormIngresso = ({ getIngresso, onEdit, setOnEdit }) => {
             label: sessao.inicio,
           }))}
           value={selectedSessao}
-          onChange={(selectedOption) => setSelectedFuncionario(selectedOption)}
+          onChange={(selectedOption) => setSelectedSessao(selectedOption)}
           isSearchable
           placeholder="Selecione a sessão"
         />

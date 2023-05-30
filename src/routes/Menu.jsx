@@ -20,9 +20,9 @@ export default function Menu() {
         <li>
           <Link to="/genero">Gênero</Link>
         </li>
-        <li>
+        {/* <li>
           <Link to="/horario">Horário</Link>
-        </li>
+        </li> */}
         <li>
           <Link to="/filme">Filme</Link>
         </li>

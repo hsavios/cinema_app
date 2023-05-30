@@ -24,7 +24,7 @@ const FormCinema = ({ getCinema, onEdit, setOnEdit }) => {
     if (
       !cinema.nomeCinema.value ||
       !cinema.enderecoCinema.value ||
-      !cinema.contatoCinema.value
+      !cinema.contatoCinema.value 
     ) {
       return toast.warn("Preencha todos os campos!");
     }

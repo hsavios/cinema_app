@@ -14,7 +14,7 @@ const FormFilme = ({ getFilme, onEdit, setOnEdit }) => {
       filme.NomeEN.value = onEdit.NomeEN;
       filme.anoLancamento.value = onEdit.anoLancamento;
       filme.sinopse.value = onEdit.sinopse;
-      filme.idGenero.value = onEdit.idGenero;
+      filme.IDgenero.value = onEdit.idGenero;
     }
   }, [onEdit]);
 
@@ -28,14 +28,14 @@ const FormFilme = ({ getFilme, onEdit, setOnEdit }) => {
       !filme.NomeEN.value ||
       !filme.anoLancamento.value ||
       !filme.sinopse.value ||
-      !filme.idGenero.value
+      !filme.IDgenero.value
     ) {
       return toast.warn("Preencha todos os campos!");
     }
 
     if (onEdit) {
       await axios
-        .put("http://localhost:8800/filme/" + onEdit.idCinema, {
+        .put("http://localhost:8800/filme/" + onEdit.idFilme, {
           NomeBR: filme.NomeBR.value,
           NomeEN: filme.NomeEN.value,
           anoLancamento: filme.anoLancamento.value,
@@ -70,15 +70,15 @@ const FormFilme = ({ getFilme, onEdit, setOnEdit }) => {
   return (
     <FormContainer ref={ref} onSubmit={handleSubmit}>
       <InputArea>
-        <Label>Nome</Label>
+        <Label>NomeBR</Label>
         <Input name="NomeBR" />
       </InputArea>
       <InputArea>
-        <Label>Endereço</Label>
+        <Label>NomeEN</Label>
         <Input name="NomeEN" />
       </InputArea>
       <InputArea>
-        <Label>Contato</Label>
+        <Label>Ano</Label>
         <Input name="AnoLançamento" />
       </InputArea>
       <InputArea>

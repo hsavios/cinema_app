@@ -1,10 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { toast } from "react-toastify";
-import {Table, Thead, Tr, Th, Td, Tbody} from "../styles/styles";
+import { Table, Thead, Tr, Th, Td, Tbody } from "../styles/styles";
 
 const GridSala = ({ salas, setSala, setOnEdit }) => {
+  const [cinemas, setCinemas] = useState([]);
+
+  useEffect(() => {
+    const fetchCinemas = async () => {
+      try {
+        const response = await axios.get("http://localhost:8800/cinema");
+        setCinemas(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchCinemas();
+  }, []);
+
+  const getCinemaNome = (idCinema) => {
+    const cinema = cinemas.find((cinema) => cinema.idCinema === idCinema);
+    return cinema ? cinema.nomeCinema : "";
+  };
+
   const handleEdit = (item) => {
     setOnEdit(item);
   };
@@ -45,7 +65,7 @@ const GridSala = ({ salas, setSala, setOnEdit }) => {
                 {item.suporta3D}
               </Td>
               <Td width="20%" onlyWeb>
-                {item.idCinema}
+                {getCinemaNome(item.IDcinema)}
               </Td>
               <Td alignCenter width="5%">
                 <FaEdit onClick={() => handleEdit(item)} />

@@ -39,7 +39,7 @@ const FormSala = ({ getSala, onEdit, setOnEdit }) => {
       !sala.nomeSala.value ||
       !sala.capacidade.value ||
       !sala.suporta3D.value ||
-      !sala.idCinema.value
+      !selectedCinema
     ) {
       return toast.warn("Preencha todos os campos!");
     }
@@ -48,9 +48,9 @@ const FormSala = ({ getSala, onEdit, setOnEdit }) => {
       await axios
         .put("http://localhost:8800/sala/" + onEdit.idSala, {
           nomeSala: sala.nomeSala.value,
-          cpacidade: sala.capacidade.value,
-          suporta3D: sala.suporta3D.value,
-          idCinema: sala.idCinema.value,
+          capacidade: sala.capacidade.value,
+          suporta3D: sala.suporta3D.checked,
+          IDcinema: sala.IDcinema.value,
         })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
@@ -59,8 +59,8 @@ const FormSala = ({ getSala, onEdit, setOnEdit }) => {
         .post("http://localhost:8800/sala/", {
           nomeSala: sala.nomeSala.value,
           capacidade: sala.capacidade.value,
-          suporta3D: sala.suporta3D.value,
-          idCinema: sala.idCinema.value,
+          suporta3D: sala.suporta3D.checked,
+          IDcinema: sala.IDcinema.value,
         })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
@@ -97,7 +97,7 @@ const FormSala = ({ getSala, onEdit, setOnEdit }) => {
       <InputArea>
         <Label>Cinema</Label>
         <StyledSelect
-          name="IDCinema"
+          name="IDcinema"
           options={cinemas.map((cinema) => ({
             value: cinema.IDcinema,
             label: cinema.nomeCinema,
